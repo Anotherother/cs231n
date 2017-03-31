@@ -49,7 +49,9 @@ class LinearClassifier(object):
       # Hint: Use np.random.choice to generate indices. Sampling with         #
       # replacement is faster than sampling without replacement.              #
       #########################################################################
-      pass
+      rand_i = np.random.choice(num_train, size = batch_size)
+      X_batch = X[rand_i, :]
+      y_batch = y[rand_i]
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -63,7 +65,7 @@ class LinearClassifier(object):
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      pass
+      self.W -= learning_rate * grad
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -90,29 +92,9 @@ class LinearClassifier(object):
     ###########################################################################
     # TODO:                                                                   #
     # Implement this method. Store the predicted labels in y_pred.            #
-    ###########################################################################
-    pass
-    ###########################################################################
-    #                           END OF YOUR CODE                              #
-    ###########################################################################
+    y_pred = np.argmax(X.dot(self.W),axis=1)
+    # returns the index of the max value
     return y_pred
-  
-  def loss(self, X_batch, y_batch, reg):
-    """
-    Compute the loss function and its derivative. 
-    Subclasses will override this.
-
-    Inputs:
-    - X_batch: A numpy array of shape (N, D) containing a minibatch of N
-      data points; each point has dimension D.
-    - y_batch: A numpy array of shape (N,) containing labels for the minibatch.
-    - reg: (float) regularization strength.
-
-    Returns: A tuple containing:
-    - loss as a single float
-    - gradient with respect to self.W; an array of the same shape as W
-    """
-    pass
 
 
 class LinearSVM(LinearClassifier):
@@ -127,4 +109,3 @@ class Softmax(LinearClassifier):
 
   def loss(self, X_batch, y_batch, reg):
     return softmax_loss_vectorized(self.W, X_batch, y_batch, reg)
-
