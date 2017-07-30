@@ -115,7 +115,7 @@ def batchnorm_forward(x, gamma, beta, bn_param):
   at test-time.
 
   At each timestep we update the running averages for mean and variance using
-  an exponential decay based on the momentum parameter:
+      an exponential decay based on the momentum parameter:
 
   running_mean = momentum * running_mean + (1 - momentum) * sample_mean
   running_var = momentum * running_var + (1 - momentum) * sample_var
@@ -168,10 +168,10 @@ def batchnorm_forward(x, gamma, beta, bn_param):
     # the momentum variable to update the running mean and running variance,    #
     # storing your result in the running_mean and running_var variables.        #
     #############################################################################
-    running_mean = momentum * mean + (1 - momentum) * running_mean
+    running_mean = momentum * mean + (1 - momentum) * running_mean  # compute means
     running_var  = momentum * var + (1 - momentum) * running_var
-    x_hat = (x - mean) / np.sqrt(var + eps)
-    x = gamma * x_hat + beta
+    x = gamma * (x - mean) / np.sqrt(var + eps) + beta
+
     #############################################################################
     #                             END OF YOUR CODE                              #
     #############################################################################
@@ -187,6 +187,7 @@ def batchnorm_forward(x, gamma, beta, bn_param):
     #############################################################################
     #                             END OF YOUR CODE                              #
     #############################################################################
+
   else:
     raise ValueError('Invalid forward batchnorm mode "%s"' % mode)
 
