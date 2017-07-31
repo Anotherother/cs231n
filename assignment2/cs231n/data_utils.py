@@ -189,6 +189,7 @@ def load_models(models_dir):
       Each model file is a pickled dictionary with a 'model' field.
 
     Returns:
+        
     A dictionary mapping model file names to models.
     """
     models = {}

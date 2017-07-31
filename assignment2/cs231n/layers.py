@@ -222,7 +222,16 @@ def batchnorm_backward(dout, cache):
   # TODO: Implement the backward pass for batch normalization. Store the      #
   # results in the dx, dgamma, and dbeta variables.                           #
   #############################################################################
-  pass
+  gamma, beta, x_hat, mean, var = cache
+
+  dbeta = np.sum(dout)
+  dgamma = np.sum(dout * x_hat)
+  dx_hat = dout * gamma
+
+  dvar   = -0.5 * np.sum(dx_hat * x_hat, axis=0) / var
+  dmean  = -1. *  np.sum(dx_hat, axis=0) / np.sqrt(var)
+
+  dx     = dx_hat / np.sqrt(var) + dvar * 2 * x_hat * np.sqrt(var) / dout.shape[0] + dmean / dout.shape[0]
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
