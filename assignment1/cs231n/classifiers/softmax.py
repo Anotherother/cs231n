@@ -57,9 +57,6 @@ def softmax_loss_naive(W, X, y, reg):
 
   return loss, dW
 
-
-
-
 def softmax_loss_vectorized(W, X, y, reg):
   """
   Softmax loss function, vectorized version.
