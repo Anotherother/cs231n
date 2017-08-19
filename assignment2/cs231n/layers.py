@@ -204,8 +204,6 @@ def batchnorm_forward(x, gamma, beta, bn_param):
   bn_param['running_mean'] = running_mean
   bn_param['running_var']  = running_var
 
-
-
   return out, cache
 
 
@@ -235,8 +233,8 @@ def batchnorm_backward(dout, cache):
   # STEP BY STEP. PEPER LINK:
   # https://kratzert.github.io/2016/02/12/understanding-the-gradient-flow-through-the-batch-normalization-layer.html
   x_hat, x, mean, var, eps, gamma, beta = cache
-  N  = x.shape[0]
 
+  N  = x.shape[0]
   dx_1 = gamma * dout
   dx_2_b = np.sum((x - mean) * dx_1, axis=0)
   dx_2_a = ((var + eps) ** -0.5) * dx_1
