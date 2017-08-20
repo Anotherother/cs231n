@@ -14,7 +14,6 @@ def affine_relu_forward(x, w, b):
   - out: Output from the ReLU
   - cache: Object to give to the backward pass
   """
-
   a, fc_cache = affine_forward(x, w, b)
   out, relu_cache = relu_forward(a)
   cache = (fc_cache, relu_cache)
@@ -46,7 +45,7 @@ def affine_relu_backward(dout, cache):
   dx, dw, db = affine_backward(da, fc_cache)
   return dx, dw, db
 
-def affine_relu_batchnorm_backward(dout, cache):
+def affine_batchnorm_relu_backward(dout, cache):
 
   """
   Backward pass for the affine-bn-relu convenience layer

@@ -212,9 +212,9 @@ class FullyConnectedNet(object):
 
     self.dropout_param = {}
     if self.use_dropout:
-      self.dropout_param = {'mode': 'train', 'p': dropout}
-      if seed is not None:
-        self.dropout_param['seed'] = seed
+        self.dropout_param = {'mode': 'train', 'p': dropout}
+        if seed is not None:
+            self.dropout_param['seed'] = seed
     
     # With batch normalization we need to keep track of running means and
     # variances, so we need to pass a special bn_param object to each batch
@@ -223,125 +223,121 @@ class FullyConnectedNet(object):
     # pass of the second batch normalization layer, etc.
     self.bn_params = []
     if self.use_batchnorm:
-      self.bn_params = [{'mode': 'train'} for i in range(self.num_layers - 1)]
+        self.bn_params = [{'mode': 'train'} for i in range(self.num_layers - 1)]
     
     # Cast all parameters to the correct datatype
     for k, v in self.params.items():
-      self.params[k] = v.astype(dtype)
-
+        self.params[k] = v.astype(dtype)
 
   def loss(self, X, y=None):
-    """
-    Compute loss and gradient for the fully-connected net.
+      """
+      Compute loss and gradient for the fully-connected net.
+      Input / output: Same as TwoLayerNet above.
+      """
+      X = X.astype(self.dtype)
+      mode = 'test' if y is None else 'train'
 
-    Input / output: Same as TwoLayerNet above.
-    """
-    X = X.astype(self.dtype)
-    mode = 'test' if y is None else 'train'
+      # Set train/test mode for batchnorm params and dropout param since they
+      # behave differently during training and testing.
+      if self.dropout_param is not None:
+          self.dropout_param['mode'] = mode
+      if self.use_batchnorm:
+          for bn_param in self.bn_params:
+              bn_param[mode] = mode
 
-    # Set train/test mode for batchnorm params and dropout param since they
-    # behave differently during training and testing.
-    if self.dropout_param is not None:
-      self.dropout_param['mode'] = mode   
-    if self.use_batchnorm:
-      for bn_param in self.bn_params:
-        bn_param[mode] = mode
+      scores = None
+      ############################################################################
+      # TODO: Implement the forward pass for the fully-connected net, computing  #
+      # the class scores for X and storing them in the scores variable.          #
+      #                                                                          #
+      # When using dropout, you'll need to pass self.dropout_param to each       #
+      # dropout forward pass.                                                    #
+      #                                                                          #
+      # When using batch normalization, you'll need to pass self.bn_params[0] to #
+      # the forward pass for the first batch normalization layer, pass           #
+      # self.bn_params[1] to the forward pass for the second batch normalization #
+      # layer, etc.                                                              #
+      ############################################################################
 
-    scores = None
-    ############################################################################
-    # TODO: Implement the forward pass for the fully-connected net, computing  #
-    # the class scores for X and storing them in the scores variable.          #
-    #                                                                          #
-    # When using dropout, you'll need to pass self.dropout_param to each       #
-    # dropout forward pass.                                                    #
-    #                                                                          #
-    # When using batch normalization, you'll need to pass self.bn_params[0] to #
-    # the forward pass for the first batch normalization layer, pass           #
-    # self.bn_params[1] to the forward pass for the second batch normalization #
-    # layer, etc.                                                              #
-    ############################################################################
-    X_layer = {}
-    X_layer[0] = X
+      X_cache = {}
+      X_bn_cache = {}
+      X_dropout_cache = {}
 
-    X_cache = {}
-    X_bn_cache = {}
-    X_dropout_cache = {}
+      if self.use_batchnorm:
+          for i in range(self.num_layers - 1):
+              X, X_bn_cache[i + 1] = affine_batchnorm_relu_forward(X, self.params['W' + str(i + 1)], \
+                                                                      self.params['b' + str(i + 1)], \
+                                                                      self.params['gamma' + str(i + 1)], \
+                                                                      self.params['beta' + str(i + 1)], \
+                                                                      self.bn_params[i])
 
-    if self.use_batchnorm:
-      for i in range(self.num_layers - 1):
-        X_layer[i+1], X_bn_cache[i+1] = affine_batchnorm_relu_forward(X_layer[i], self.params['W'+str(i+1)],\
-                                                              self.params['b' + str(i + 1)],\
-                                                              self.params['gamma' + str(i + 1)],\
-                                                              self.params['beta' + str(i + 1)],\
-                                                              self.bn_params[i])
-        if self.use_dropout:
-          X_layer[i + 1], X_dropout_cache[i + 1] = dropout_forward(X_layer[i], self.dropout_param)
+              if self.use_dropout:
+                  X, X_dropout_cache[i + 1] = dropout_forward(X, self.dropout_param)
+              if self.use_dropout:
+                  X, X_dropout_cache[i + 1] = dropout_forward(X, self.dropout_param)
 
+      if not self.use_batchnorm:
+          for it in range(self.num_layers - 1):
+              X, X_cache[it + 1] = affine_relu_forward(X, self.params['W' + str(it + 1)],
+                                                       self.params['b' + str(it + 1)])
+              if self.use_dropout:
+                  X, X_dropout_cache[it + 1] = dropout_forward(X, self.dropout_param)
 
-    if not self.use_batchnorm:
-      for i in range(self.num_layers - 1):
-        X_layer[i + 1], X_bn_cache[i + 1] = affine_relu_forward(X_layer[i], self.params['W'+str(i+1)], \
-                                                     self.params['b' + str(i + 1)])
-        if self.use_dropout:
-          X, X_dropout_cache[i + 1] = dropout_forward(X, self.dropout_param)
+      scores, o_cache = affine_forward(X, self.params['W' + str(self.num_layers)],
+                                          self.params['b' + str(self.num_layers)])
+      pass
+      ############################################################################
+      #                             END OF YOUR CODE                             #
+      ############################################################################
 
+      # If test mode return early
+      if mode == 'test':
+          return scores
 
-    scores, o_cache = affine_forward(X_layer[self.num_layers- 1], self.params['W'+str(self.num_layers)], \
-                                             self.params['b'+ str(self.num_layers)])
+      loss, grads = 0.0, {}
+      ############################################################################
+      # TODO: Implement the backward pass for the fully-connected net. Store the #
+      # loss in the loss variable and gradients in the grads dictionary. Compute #
+      # data loss using softmax, and make sure that grads[k] holds the gradients #
+      # for self.params[k]. Don't forget to add L2 regularization!               #
+      #                                                                          #
+      # When using batch normalization, you don't need to regularize the scale   #
+      # and shift parameters.                                                    #
+      #                                                                          #
+      # NOTE: To ensure that your implementation matches ours and you pass the   #
+      # automated tests, make sure that your L2 regularization includes a factor #
+      # of 0.5 to simplify the expression for the gradient.                      #
+      ############################################################################
+      loss, dscores = softmax_loss(scores, y)
 
-    ############################################################################
-    #                             END OF YOUR CODE                             #
-    ############################################################################
+      for i in range(self.num_layers):
+          loss += 0.5 * self.reg * np.sum(self.params['W' + str(i + 1)] ** 2)
 
-    # If test mode return early
-    if mode == 'test':
-      return scores
+      dx = {}
+      dx[self.num_layers], grads['W' + str(self.num_layers)],\
+        grads['b' + str(self.num_layers)] = affine_backward(dscores, o_cache)
+      grads['W' + str(self.num_layers)] += self.reg * self.params['W' + str(self.num_layers)]
 
-    loss, grads = 0.0, {}
+      if self.use_batchnorm:
+          for it in range(self.num_layers - 1, 0, -1):
+              if self.use_dropout:
+                  dx[it + 1] = dropout_backward(dx[it + 1], X_dropout_cache[it])
 
-    ############################################################################
-    # TODO: Implement the backward pass for the fully-connected net. Store the #
-    # loss in the loss variable and gradients in the grads dictionary. Compute #
-    # data loss using softmax, and make sure that grads[k] holds the gradients #
-    # for self.params[k]. Don't forget to add L2 regularization!               #
-    #                                                                          #
-    # When using batch normalization, you don't need to regularize the scale   #
-    # and shift parameters.                                                    #
-    #                                                                          #
-    # NOTE: To ensure that your implementation matches ours and you pass the   #
-    # automated tests, make sure that your L2 regularization includes a factor #
-    # of 0.5 to simplify the expression for the gradient.                      #
-    ############################################################################
-    loss, dscores = softmax_loss(scores, y)
+              dx[it], grads['W' + str(it)],\
+                      grads['b' + str(it)],  grads['gamma' + str(it)],\
+                      grads['beta' + str(it)] = affine_batchnorm_relu_backward(dx[it + 1], X_bn_cache[it])
 
-    # reg_loss
-    for i in range(self.num_layers):
-      loss += 0.5* self.reg * np.sum(self.params['W'+ str(i+1)]**2)
+              grads['W' + str(it)] += self.reg * self.params['W' + str(it)]
 
-    dx = {}
-    dx[self.num_layers], grads["W"+ str(self.num_layers)],\
-                         grads["b"+ str(self.num_layers)] = affine_backward(dscores, o_cache)
+      if not self.use_batchnorm:
+          for it in range(self.num_layers - 1, 0, -1):
+              if self.use_dropout:
+                  dx[it + 1] = dropout_backward(dx[it + 1], X_dropout_cache[it])
+              dx[it], grads['W' + str(it)], grads['b' + str(it)] = affine_relu_backward(dx[it + 1], X_cache[it])
+              grads['W' + str(it)] += self.reg * self.params['W' + str(it)]
 
-    if self.use_batchnorm:
-      for i in reversed(range(self.num_layers - 1)):
-        if self.use_dropout:
-          dx[i + 1] = dropout_backward(dx[i + 1], X_dropout_cache[i])
+      ############################################################################
+      #                             END OF YOUR CODE                             #
+      ############################################################################
 
-        dx[i], grads['W'+str(i)], grads['b'+str(i)], grads['gamma'+str(i)],\
-               grads['beta'+str(i)] = affine_relu_batchnorm_backward(dx[i+1], X_bn_cache[i])
-        grads['W' + str(i)] += self.reg * self.params['W' + str(i)]
-
-    if not self.use_batchnorm:
-      for i in reversed(range(self.num_layers - 1)):
-        if self.use_dropout:
-          dx[i + 1] = dropout_backward(dx[i + 1], X_dropout_cache[i])
-
-        dx[i], grads['W' + str(i)], grads['b' + str(i)]  = affine_relu_backward(dx[i + 1], \
-                                                                                X_cache[i])
-        grads['W' + str(i)] += self.reg * self.params['W' + str(i)]
-
-    ############################################################################
-    #                             END OF YOUR CODE                             #
-    ############################################################################
-
-    return loss, grads
+      return loss, grads
