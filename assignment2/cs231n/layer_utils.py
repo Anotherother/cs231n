@@ -14,6 +14,7 @@ def affine_relu_forward(x, w, b):
   - out: Output from the ReLU
   - cache: Object to give to the backward pass
   """
+
   a, fc_cache = affine_forward(x, w, b)
   out, relu_cache = relu_forward(a)
   cache = (fc_cache, relu_cache)
@@ -33,7 +34,7 @@ def affine_batchnorm_relu_forward(x, w, b, gamma, beta, bn_param):
   affine_out, fc_cache = affine_forward(x, w, b)
   batchnorm_out, bn_cache = batchnorm_forward(affine_out, gamma, beta, bn_param)
   out, relu_cache = relu_forward(batchnorm_out)
-  cache = (fc_cache, relu_cache)
+  cache = (fc_cache, bn_cache, relu_cache)
   return out, cache
 
 def affine_relu_backward(dout, cache):
