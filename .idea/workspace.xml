@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49ff741a-3ace-4caf-a564-ecc2373d887e" name="Default" comment="">
+    <list default="true" id="49ff741a-3ace-4caf-a564-ecc2373d887e" name="Default" comment="Fully-Connected Network works!">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment2/.ipynb_checkpoints/BatchNormalization-checkpoint.ipynb" afterPath="$PROJECT_DIR$/assignment2/.ipynb_checkpoints/BatchNormalization-checkpoint.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment2/BatchNormalization.ipynb" afterPath="$PROJECT_DIR$/assignment2/BatchNormalization.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment2/Dropout.ipynb" afterPath="$PROJECT_DIR$/assignment2/Dropout.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment2/cs231n/classifiers/fc_net.py" afterPath="$PROJECT_DIR$/assignment2/cs231n/classifiers/fc_net.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment2/cs231n/layer_utils.py" afterPath="$PROJECT_DIR$/assignment2/cs231n/layer_utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,74 +17,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="layers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assignment2/cs231n/layers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4730">
-              <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fc_net.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assignment2/cs231n/classifiers/fc_net.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1400">
-              <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="solver.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assignment2/cs231n/solver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3655">
-              <caret line="217" column="2" lean-forward="false" selection-start-line="217" selection-start-column="2" selection-end-line="217" selection-end-column="2" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="optim.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assignment2/cs231n/optim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="44" lean-forward="false" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fast_layers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assignment2/cs231n/fast_layers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="203" column="13" lean-forward="false" selection-start-line="203" selection-start-column="12" selection-end-line="203" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layer_utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assignment2/cs231n/layer_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1499">
-              <caret line="35" column="31" lean-forward="false" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -471,14 +403,20 @@
       <option name="project" value="LOCAL" />
       <updated>1503206980258</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fully-Connected Network works!">
+      <created>1503215914852</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1503215914852</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19095092" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19095092" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937685" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -515,7 +453,8 @@
     <MESSAGE value="fully_connected for many layers" />
     <MESSAGE value="fully_connected few fixes" />
     <MESSAGE value="dropout" />
-    <option name="LAST_COMMIT_MESSAGE" value="dropout" />
+    <MESSAGE value="Fully-Connected Network works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fully-Connected Network works!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -890,14 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignment2/cs231n/layers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4730">
-          <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignment2/cs231n/fast_layers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="586">
@@ -906,23 +837,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assignment2/cs231n/classifiers/fc_net.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-829">
+          <caret line="284" column="35" lean-forward="false" selection-start-line="284" selection-start-column="35" selection-end-line="284" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assignment2/cs231n/layer_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1499">
-          <caret line="35" column="31" lean-forward="false" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+        <state relative-caret-position="85">
+          <caret line="101" column="14" lean-forward="true" selection-start-line="101" selection-start-column="14" selection-end-line="101" selection-end-column="14" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignment2/cs231n/classifiers/fc_net.py">
+    <entry file="file://$PROJECT_DIR$/assignment2/cs231n/layers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1400">
-          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="88">
+          <caret line="328" column="14" lean-forward="false" selection-start-line="328" selection-start-column="14" selection-end-line="328" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

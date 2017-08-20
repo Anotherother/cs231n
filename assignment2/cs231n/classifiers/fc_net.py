@@ -239,6 +239,7 @@ class FullyConnectedNet(object):
 
       # Set train/test mode for batchnorm params and dropout param since they
       # behave differently during training and testing.
+
       if self.dropout_param is not None:
           self.dropout_param['mode'] = mode
       if self.use_batchnorm:
