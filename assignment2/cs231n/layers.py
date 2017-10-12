@@ -452,6 +452,38 @@ def conv_backward_naive(dout, cache):
   # TODO: Implement the convolutional backward pass.                          #
   #############################################################################
   x, w, b, conv_param = cache
+  N, F, H_R, W_R = dout.shape
+  N, C, H, W = x.shape
+  F, C, HH, WW = w.shape
+  stride, pad = conv_param['stride'], conv_param['pad']
+  x_pad = np.pad(x, ((0,), (0,), (pad,), (pad,)), mode='constant', constant_values=0)
+
+  dx = np.zeros(x_pad.shape)
+  dw = np.zeros(w.shape)
+  db = np.zeros(b.shape)
+
+  # Calc dx with 2 extra col/row that will be detected
+  for n in range(N): # For each element on batch
+    for deph in range(F): # For each filter
+      for r in range(0, H, stride): #slide vertically taking stride into account
+        for c in range(0,W,stride): #slide horisontally taking stride into account
+          dx[n,:,r:r+HH,c:c+WW] += dout[n,deph, r / stride, c / stride] * w[deph,:,:,:]
+
+  # delete padded rows  to math real dx
+  delete_rows = range(pad) + range(H + pad, H + 2 * pad , 1)
+  delete_columns = range(pad) + range(W + pad, W + 2 * pad, 1)
+  dx = np.delete(dx, delete_rows, axis = 2)
+  dx = np.delete(dx, delete_columns, axis = 3)
+
+  #Calc dw
+  for n in range(N):
+    for deph in range(F):
+      for r in range(H_R):
+        for c in range(W_R):
+          dw[deph,:,:,:] += dout[n, deph, r, c] * x_pad[n, :, r * stride:r*stride +HH, c *stride:c*stride + WW]
+  # Calculate db
+  for deph in range(F):
+    db[deph] = np.sum (dout[:, deph, : :])
 
   #############################################################################
   #                             END OF YOUR CODE                              #
