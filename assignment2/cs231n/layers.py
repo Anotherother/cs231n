@@ -300,6 +300,7 @@ def batchnorm_backward_alt(dout, cache):
 
 
 def dropout_forward(x, dropout_param):
+
   """
   Performs the forward pass for (inverted) dropout.
 
@@ -318,6 +319,7 @@ def dropout_forward(x, dropout_param):
   - cache: A tuple (dropout_param, mask). In training mode, mask is the dropout
     mask that was used to multiply the input; in test mode, mask is None.
   """
+
   p, mode = dropout_param['p'], dropout_param['mode']
 
   if 'seed' in dropout_param:
@@ -399,12 +401,32 @@ def conv_forward_naive(x, w, b, conv_param):
     W' = 1 + (W + 2 * pad - WW) / stride
   - cache: (x, w, b, conv_param)
   """
+
   out = None
   #############################################################################
   # TODO: Implement the convolutional forward pass.                           #
   # Hint: you can use the function np.pad for padding.                        #
   #############################################################################
-  pass
+
+  N, C, H, W = x.shape
+  F, C, HH, WW = w.shape
+  stride, pad = conv_param['stride'], conv_param['pad']
+
+  H_out = 1 + (H + 2 * pad - HH) / stride
+  W_out = 1 + (W + 2 * pad - WW) / stride
+
+  out = (N, F, H_out, W_out)
+
+  x_pad = np.pad(x, ((0,), (0,), (pad,), (pad,)), mode='constant', constant_values=0)
+
+  for i in range(H_out):
+    for j in range(W_out):
+      x_pad_masked = x_pad[:, :, i * stride: i * stride + HH, j * stride:j * stride + WW]
+      for k in range(F):
+        out[:, k, i, j] = np.sum(x_pad_masked * w[k, :, :, :], axis=(1, 2, 3))
+
+  out = out + (b)[None, :, None, None]
+  cache = (x,w,b, conv_param)
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
@@ -429,7 +451,8 @@ def conv_backward_naive(dout, cache):
   #############################################################################
   # TODO: Implement the convolutional backward pass.                          #
   #############################################################################
-  pass
+  x, w, b, conv_param = cache
+
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
