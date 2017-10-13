@@ -532,7 +532,6 @@ def max_pool_forward_naive(x, pool_param):
   return out, cache
 
 
-
 def max_pool_backward_naive(dout, cache):
   """
   A naive implementation of the backward pass for a max pooling layer.
@@ -545,10 +544,23 @@ def max_pool_backward_naive(dout, cache):
   - dx: Gradient with respect to x
   """
   dx = None
-  #############################################################################
+  x, pool_param = cache
+  N, C, H, W = x.shape
+  stride, H_P, W_P = pool_param['stride'], pool_param['pool_height'],pool_param['pool_width']
+  N,C, HH, WW  = dout.shape
+
+   #############################################################################
   # TODO: Implement the max pooling backward pass                             #
   #############################################################################
-  pass
+  # Calc dx with 2 extra col/row that will be detected
+  for n in range(N):  # For each element on batch
+    for deph in range(C):  # For each filter
+      for r in range(0, HH):  # slide vertically taking stride into account
+        for c in range(0, WW):  # slide horisontally taking stride into account
+          x_pool = x[n, deph, r * stride: r * stride + H_P, c * stride: c * stride + W_P]
+          mask = (x_pool == np.max(x_pool))
+          dx[n, deph, r * stride: r * stride + H_P, c * stride: c * stride + W_P] = mask * dout[n, deph, r, c]
+
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
